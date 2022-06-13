@@ -13,24 +13,9 @@ export default NextAuth({
     },
     secret: process.env.SECRET_CODE,
     callbacks: {
-        // async jwt(token, account,res) {
-        //     console.log(res)
-        //     console.log(token)
-        //     console.log(account)
-        //     console.log(process.env.SECRET_CODE,)
-        //     if (account?.accessToken) {
-        //         token.accessToken = account.accessToken
-        //     }
-        //     else {
-        //         return token
-        //     }
-        // },
-        redirect: async (url, _baseUrl) => {
-            if (url === '/profile') {
-                return Promise.resolve('/');
-
-            }
-            return Promise.resolve('/');
-        }
+        async jwt({ token }) {
+            token.userRole = "user"
+            return token
+        },
     }
 });
