@@ -49,6 +49,5 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
   const { data } = await axios.get(`https://next-js-practice-srakib17.vercel.app/api/todo/${session?.user?.email}`)
 
-
   return { props: { note: data } }
 }
