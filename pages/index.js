@@ -27,7 +27,7 @@ export default function Home({ note }) {
     );
   }
   return (
-    <div className="p-4" data-theme="dark">
+    <div className="p-4 mr-1" data-theme="dark">
       <div className="min-h-screen bg-base-200 max-w-[600px] rounded-md shadow-lg m-auto pt-10">
         <div className="text-right p-4 flex gap-2 justify-end items-center">
           <h1 className="text-xs md:text-xl">

@@ -125,8 +125,8 @@ const Todo = ({ note }) => {
     return (
         <div className='text-center'>
             <div>
-                <form onSubmit={addTodoHandler} action={'/api/todo/' + session?.user?.email} method='post'>
-                    <input className='input  input-primary ' ref={noteRef} placeholder="Todo" required name='note' type="text" />
+                <form onSubmit={addTodoHandler} action={'/api/todo/' + session?.user?.email} method='post' className=''>
+                    <input className='input  input-primary mr-1' ref={noteRef} placeholder="Todo" required name='note' type="text" />
                     <button className='btn btn-primary'>{edit ? 'Save' : 'Add'}</button>
                 </form>
             </div>
