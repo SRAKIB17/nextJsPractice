@@ -3,10 +3,10 @@ import styles from '../styles/Home.module.css'
 import Head from 'next/head'
 import Todo from "../component/todo";
 import Link from 'next/link'
-
+import axios, { } from 'axios'
 export default function Home({ note }) {
-  const { data: session, loadingSession } = useSession();
-console.log(session)
+  const { data: session } = useSession();
+  // console.log(session)
   if (session) {
     return (
       <div className="p-4" data-theme="dark">
@@ -47,10 +47,8 @@ console.log(session)
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const res = await fetch(`https://next-js-practice-srakib17.vercel.app/api/todo/${session?.user?.email}`, {
-    method: 'GET'
-  })
-  const data = await res.json();
+  const { data } = await axios.get(`https://next-js-practice-srakib17.vercel.app/api/todo/${session?.user?.email}`)
+
 
   return { props: { note: data } }
 }
