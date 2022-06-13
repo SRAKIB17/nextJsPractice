@@ -38,6 +38,7 @@ export default function Home({note}) {
       </Head>
       <h1 className="text-3xl font-bold underline">
         Hello world!
+
       </h1>
       <button onClick={() => signIn()}>Sign in</button>
     </div>
@@ -51,16 +52,6 @@ export async function getServerSideProps(context) {
     method: 'GET'
   })
   const data = await res.json();
-  // // or use context.resolvedUrl for conditional redirect
-  // // if(context.resolvedUrl == "/")
-  // if (!data) {
-  //     return {
-  //         redirect: {
-  //             destination: '/hello-nextjs',
-  //             permanent: false,
-  //         },
-  //     }
-  // }
 
   return { props: { note: data } }
 }
