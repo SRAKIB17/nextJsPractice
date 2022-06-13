@@ -48,7 +48,7 @@ export default function Home({note}) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const res = await fetch(`http://localhost:3000/api/todo/${session?.user?.email}`, {
+  const res = await fetch(`https://next-js-practice-srakib17.vercel.app/api/todo/${session?.user?.email}`, {
     method: 'GET'
   })
   const data = await res.json();
