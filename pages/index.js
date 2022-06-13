@@ -1,17 +1,26 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, getSession, signIn, signOut } from "next-auth/react"
 import styles from '../styles/Home.module.css'
 import Head from 'next/head'
+import Todo from "../component/todo";
 
-export default function Home() {
+export default function Home({note}) {
   const { data: session, loadingSession } = useSession();
-  console.log(session)
 
   if (session) {
     return (
-      <div data-theme="dark" className={styles.container}>
-        <button className="btn btn-circle">jsofjl</button>
-        Welcome user<br />
-        <button onClick={() => signOut()}>Sign out</button>
+      <div className="p-4" data-theme="dark">
+        <div className="min-h-screen bg-base-200 max-w-[600px] rounded-md shadow-lg m-auto pt-10">
+          <div className="text-right p-4 flex gap-2 justify-end items-center">
+            <h1 className="text-xs md:text-xl">
+              Welcome {session?.user?.name}
+            </h1>
+            <button className="btn btn-xs btn-outline" onClick={() => signOut()}>Sign out</button>
+          </div>
+          <div className="text-center ">
+            <input type="text" className="input input-primary bg-red-500" />
+            <Todo note={note}/>
+          </div>
+        </div>
       </div>
     );
   }
@@ -33,4 +42,25 @@ export default function Home() {
       <button onClick={() => signIn()}>Sign in</button>
     </div>
   );
+}
+
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  const res = await fetch(`http://localhost:3000/api/todo/${session?.user?.email}`, {
+    method: 'GET'
+  })
+  const data = await res.json();
+  // // or use context.resolvedUrl for conditional redirect
+  // // if(context.resolvedUrl == "/")
+  // if (!data) {
+  //     return {
+  //         redirect: {
+  //             destination: '/hello-nextjs',
+  //             permanent: false,
+  //         },
+  //     }
+  // }
+
+  return { props: { note: data } }
 }

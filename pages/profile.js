@@ -14,7 +14,7 @@ const Profile = () => {
     );
 };
 export async function getServerSideProps(context) {
-    const session = await getSession(context);
+    const session =  getSession(context);
     if (!session) {
         context.res.writeHead(302, { Location: "/" });
         context.res.end();
